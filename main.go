@@ -2,8 +2,8 @@ package main
 
 import (
 	"log"
-	"os"
 
+	"github.com/barismar/planner-rest-api/config"
 	"github.com/barismar/planner-rest-api/routes"
 	"github.com/joho/godotenv"
 )
@@ -12,7 +12,7 @@ func main() {
 	loadEnv()
 	router := routes.SetupRouter()
 
-	router.Run(":" + os.Getenv("APP_PORT"))
+	router.Run(":" + config.Env("APP_PORT", "3000"))
 }
 
 func loadEnv() {
