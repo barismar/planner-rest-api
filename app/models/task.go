@@ -1,20 +1,30 @@
 package models
 
+import (
+	"gorm.io/gorm"
+)
+
+var DB *gorm.DB
+
 type Task struct {
+	gorm.Model
 	ID          int    `"json:id"`
 	Description string `json:"description"`
 	IsDone      bool   `json:"isDone"`
 }
 
 func GetTasks() []Task {
-	Tasks := []Task{
-		Task{ID: 1, Description: "This is first task", IsDone: true},
-		Task{ID: 2, Description: "This is second task", IsDone: false},
-	}
+	var tasks []Task
 
-	return Tasks
+	DB.Find(&tasks)
+
+	return tasks
 }
 
-func ShowTask() Task {
-	return Task{ID: 1, Description: "This is first task", IsDone: true}
+func ShowTask(id string) Task {
+	var task Task
+
+	DB.First(&task, id)
+
+	return task
 }
