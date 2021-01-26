@@ -17,6 +17,6 @@ func GetTasks(context *gin.Context) {
 func ShowTask(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{
 		"message": "ok",
-		"data":    context.Param("id"),
+		"data":    models.ShowTask(context.Param("id")),
 	})
 }
