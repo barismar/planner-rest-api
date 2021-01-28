@@ -16,6 +16,7 @@ func SetupRouter() *gin.Engine {
 func ApiRoute(route *gin.Engine) {
 	route.GET("/health-check", controllers.HealthCheck)
 
+	route.POST("/tasks", controllers.StoreTask)
 	route.GET("/tasks", controllers.GetTasks)
 	route.GET("/tasks/:id", controllers.ShowTask)
 }

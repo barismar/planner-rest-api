@@ -1,16 +1,26 @@
 package models
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
-
 type Task struct {
-	gorm.Model
-	ID          int    `"json:id"`
-	Description string `json:"description"`
-	IsDone      bool   `json:"isDone"`
+	ID          uint           `json:"id"`
+	Description string         `json:"description"`
+	IsDone      bool           `json:"is_done"`
+	CreatedAt   time.Time      `json:"created_at"`
+	UpdatedAt   time.Time      `json:"updated_at"`
+	DeletedAt   gorm.DeletedAt `json:"deleted_at"`
+}
+
+func StoreTask(description string) Task {
+	task := Task{Description: description, IsDone: false, CreatedAt: time.Now(), UpdatedAt: time.Now()}
+
+	DB.Create(&task)
+
+	return task
 }
 
 func GetTasks() []Task {
