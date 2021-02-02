@@ -11,6 +11,7 @@ import (
 
 func main() {
 	loadEnv()
+	config.InitAuth()
 	models.DB = config.InitDatabase()
 	router := routes.SetupRouter()
 

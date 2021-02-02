@@ -9,6 +9,8 @@ func SetupRouter() *gin.Engine {
 	router := gin.Default()
 
 	ApiRoute(router)
+	TemplateRoute(router)
+	AuthRoute(router)
 
 	return router
 }
@@ -19,4 +21,13 @@ func ApiRoute(route *gin.Engine) {
 	route.POST("/tasks", controllers.StoreTask)
 	route.GET("/tasks", controllers.GetTasks)
 	route.GET("/tasks/:id", controllers.ShowTask)
+}
+
+func TemplateRoute(route *gin.Engine) {
+	route.GET("/", controllers.Home)
+}
+
+func AuthRoute(route *gin.Engine) {
+	route.GET("/login", controllers.Login)
+	route.GET("/google-callback", controllers.GoogleCallback)
 }
