@@ -11,11 +11,7 @@ import (
 
 func main() {
 	loadEnv()
-	config.InitAuth()
-	models.DB = config.InitDatabase()
-	router := routes.SetupRouter()
-
-	router.Run(":" + config.Env("APP_PORT", "3000"))
+	setupApp()
 }
 
 func loadEnv() {
@@ -24,4 +20,10 @@ func loadEnv() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+}
+
+func setupApp() {
+	models.DB = config.SetupDBConnection()
+	router := routes.SetupRouter()
+	router.Run(":" + config.Env("APP_PORT", "3000"))
 }
