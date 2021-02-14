@@ -7,12 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type CreateTaskInput struct {
-	Description string `json:"description" binding:"required"`
-}
-
 func StoreTask(context *gin.Context) {
-	var input CreateTaskInput
+	var input models.CreateTaskInput
 	if err := context.ShouldBindJSON(&input); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error()})
@@ -21,7 +17,7 @@ func StoreTask(context *gin.Context) {
 
 	context.JSON(http.StatusCreated, gin.H{
 		"message": "ok",
-		"data":    models.StoreTask(input.Description),
+		"data":    models.StoreTask(input),
 	})
 }
 
